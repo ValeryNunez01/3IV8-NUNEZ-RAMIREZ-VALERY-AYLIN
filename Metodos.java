@@ -3,13 +3,17 @@ import javax.swing.JOptionPane;
 
 public class Metodos{
 
+    /*Se declaran dos variables globales, ya que las vamos a estar 
+    ocupando en varios metodos*/
+    Double ca = 0.0;
+    Double total1 = 0.0;
+
     Scanner entrada = new Scanner(System.in);
 
-    //Hacemos un metodo que muestre un menu el cual a u vez llame a otros metodos
-    //Este menu permite repetir cada opcion o bien el menu completo
-
+    /*El metodo menu realiza una lista, la cual al elegir u a opcion,
+     mandara llamar a otro metodo. Este menu prmite repetir cada opcion 
+     o incluso el menu completo*/
     public void menu(){
-
         int opcion;
         int numero;
         int numero1=0;
@@ -17,17 +21,16 @@ public class Metodos{
         do{
 
         System.out.println("Elija alguna opcion");
-        System.out.println("1.Perimetro y area de un circulo");
-        System.out.println("2.Perimetro y area de un rectangulo");
-        System.out.println("3.Perimetro y area de un cuadrado");
-        System.out.println("4.Perimetro y area de un triangulo");
+        System.out.println("1.Calculo del precio a pagar");
+        System.out.println("2.Anadir credito");
+        System.out.println("3.Consultar credito");
 
         opcion = entrada.nextInt();
         
         switch(opcion){
             case 1:
             do{ 
-            circulo();
+            Calculo();
             System.out.println("¿Desea repetir esta opcion?, si la respuesta es afirmativa escriba un 1, de lo contrario escriba un 0");
             numero = entrada.nextInt();
             }while(numero != 0);
@@ -37,7 +40,7 @@ public class Metodos{
 
             case 2:
             do{
-            rectangulo();
+            Anadir();
             System.out.println("¿Desea repetir esta opcion?, si la respuesta es afirmativa escriba un 1, de lo contrario escriba un 0");
             numero = entrada.nextInt();
             }while(numero != 0);
@@ -47,17 +50,7 @@ public class Metodos{
 
             case 3:
             do{
-            cuadrado();
-            System.out.println("¿Desea repetir esta opcion?, si la respuesta es afirmativa escriba un 1, de lo contrario escriba un 0");
-            numero = entrada.nextInt();
-            }while(numero != 0);
-            System.out.println("¿Desea repetir el menu?, si la respuesta es afirmativa escriba un 3, de lo contrario escriba un 5");
-            numero1 = entrada.nextInt();
-            break;
-
-            case 4:
-            do{
-            triangulo();
+            Consultar();
             System.out.println("¿Desea repetir esta opcion?, si la respuesta es afirmativa escriba un 1, de lo contrario escriba un 0");
             numero = entrada.nextInt();
             }while(numero != 0);
@@ -66,96 +59,90 @@ public class Metodos{
             break;
         }    
         }while(numero1 != 5);
-    }    
+    }
+    /*En este metodo llamado calculo, vamos a obtener valores del usuario
+     que nos van a permitir hacer los distintos calculos que proporcina 
+     el programa */
+    public void Calculo(){
 
-        //Este metodo permite calcular el area y el perimetro de un circulo
-        public void circulo(){
+        int credito;
+        int celular;
+        int l;
+        int l1;
+        int l2;
+        Double t1;
+        Double t2;
+        Double t3;
+        Double total;
+        Double t;
+        
+        System.out.println("Ingrese su numero de celular sin el (55)");
+        celular = entrada.nextInt();
+        System.out.println("Ingrese su credito actual");
+        credito = entrada.nextInt();
+        System.out.println("¿Cuantas llamadas nacionales ha realizado en este mes?");
+        l = entrada.nextInt();
+        System.out.println("¿Cuantas llamadas internacionales ha realizado en este mes?");
+        l1 = entrada.nextInt();
+        System.out.println("¿Cuantas llamadas a celular ha realizado en este mes?");
+        l2 = entrada.nextInt();
 
-            Double area;
-            Double perimetro;
-            Double radio;
+        t1 = l * 0.5;
+        t2 = l1 * 0.6;
+        t3 = l2 * 0.2;
+        total = t1 + t2 + t3;
+        ca = credito - total;
 
-            System.out.println("Ingresa el radio de tu circulo");
-            radio = entrada.nextDouble(); 
+        System.out.println("Precio total por llamadas nacionales "+t1+" pesos");
+        System.out.println("Precio total por llamadas internacionales "+t2+" pesos");
+        System.out.println("Precio total por llamadas a celular "+t3+" pesos");
+        System.out.println("Costo total "+total+" pesos");
+        System.out.println("Credito actual "+credito+" pesos");
+        System.out.println("Credito actualizado "+ca+" pesos");
+    }
+    /*El metodo Anadir le permite al usuario agregar dinero a su credito actual*/
+    public void Anadir(){
 
-            
-            area = 3.1416 * (radio * radio);
-            perimetro = 3.1416 * (radio * 2.00);
+        Double dinero;
+        Double credito;
 
-            System.out.println("Area = "+area+"\nPerimetro = "+perimetro);
+        if(ca == 0){
+
+            System.out.println("Ingrese su credito actual");
+            credito = entrada.nextDouble();
+            System.out.println("Escriba la cantidad de dinero que desea anadir a su credito actual");
+            dinero = entrada.nextDouble();
+
+            total1 =  dinero + credito;
+
+        System.out.println("Su credito total ahora es de "+total1+" pesos");
 
         }
+        else{
+            System.out.println("Escriba la cantidad de dinero que desea anadir a su credito actual");
+        dinero = entrada.nextDouble();
+        total1 =  dinero + ca;
+        System.out.println("Su credito total ahora es de "+total1+" pesos");
+        }
+    }
 
-        //Este metodo permite calcular el area y el perimetro de un rectangulo
-        public void rectangulo(){
-
-            Double lado1;
-            Double lado2;
-            Double perimetro;
-            Double area;
-
-            System.out.println("Ingresa la distancia del lado 1");
-            lado1 = entrada.nextDouble(); 
-
-            System.out.println("Ingresa la distancia del lado 2");
-            lado2 = entrada.nextDouble(); 
-
+    /*El metodo cosultar permite saber tu crdito total. Sin embargo, 
+    si el usuario no ha entrado a alguna de las primeras 2 opciones del
+    menu, el programa e dira que no conoce su credito*/
+    public void Consultar(){
+        if(ca == 0 && total1 == 0.0){
             
-            area = lado1 * lado2;
-            perimetro = (lado1 * 2) + (lado2*2);
-
-            System.out.println("Area = "+area+"\nPerimetro = "+perimetro);
+            System.out.println("No conocemos su credito");
 
         }
-
-        //Este metodo permite calcular el area y el perimetro de un cuadrado
-        public void cuadrado(){
-
-            Double lado;
-            Double perimetro;
-            Double area;
-
-            System.out.println("Ingresa la distancia del lado ");
-            lado = entrada.nextDouble(); 
-
-            area = lado * lado;
-            perimetro = lado * 4;
-
-            System.out.println("Area = "+area+"\nPerimetro = "+perimetro);
-
+        else{
+            if(total1 > ca){
+                System.out.println("Su credito total es de "+total1+" pesos");
+            } 
+            else{
+                System.out.println("Su credito total es de "+ca+" pesos");
+            }
         }
-
-        //Este metodo permite calcular el area y el perimetro de un triangulo
-        public void triangulo(){
-
-            Double altura;
-            Double base;
-            Double perimetro;
-            Double area;
-            Double lado1;
-            Double lado2;
-            Double lado3;
-
-            System.out.println("Ingresa la distancia del lado 1");
-            lado1 = entrada.nextDouble();
-
-            System.out.println("Ingresa la distancia del lado 2");
-            lado2 = entrada.nextDouble(); 
-
-            System.out.println("Ingresa la distancia del lado 3");
-            lado3 = entrada.nextDouble(); 
-
-            System.out.println("Ingresa la distancia de la altura");
-            altura = entrada.nextDouble();
-            
-            System.out.println("Ingresa la distancia de la base");
-            base = entrada.nextDouble();   
-            
-            
-            area = (altura * base)/2;
-            perimetro = lado1 + lado2 + lado3;
-
-            System.out.println("Area = "+area+"\nPerimetro = "+perimetro);
-
-        }    
-}
+    }
+}   
+    
